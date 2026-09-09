@@ -425,5 +425,22 @@ async function startServer() {
     console.log(`[Smart Canteen] Server listening on http://0.0.0.0:${PORT} (mode: ${isProduction ? 'production' : 'development'}, Cloud Run: ${isCloudRun})`);
   });
 }
+app.get('/api/whatsapp/webhook', (req, res) => {
+  const mode = req.query['hub.mode'];
+  const token = req.query['hub.verify_token'];
+  const challenge = req.query['hub.challenge'];
 
+  const verifyToken = process.env.WHATSAPP_VERIFY_TOKEN;
+
+  if (mode === 'subscribe' && token === verifyToken) {
+    return res.status(200).send(challenge);
+  }
+
+  return res.sendStatus(403);
+});
+
+app.post('/api/whatsapp/webhook', (req, res) => {
+  console.log('[WhatsApp] Webhook event:', JSON.stringify(req.body));
+  res.sendStatus(200);
+});
 startServer();
