@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check admin status
+    function isAdmin() {
+      return request.auth != null && (
+        request.auth.token.email == 'palepupradeep.p@gmail.com' ||
+        request.auth.token.admin == true ||
+        request.auth.token.email.matches('.*admin.*') ||
+        request.auth.token.role == 'admin'
+      );
+    }
+
+    // Orders Collection
+    match /orders/{orderId} {
+      // Customers or staff can create orders with valid payload
+      allow create: if request.resource.data.orderId is string
+                    && request.resource.data.mobileNumber is string
+                    && request.resource.data.totalAmount is number;
+
+      // Allow tracking orders
+      allow read: if true;
+
+      // Allow order updates (status changes, device tokens registration)
+      allow update: if true;
+
+      // Allow order cleanup/cancellation
+      allow delete: if true;
+    }
+
+    // Customers Collection
+    match /customers/{customerId} {
+      allow read, write: if true;
+    }
+
+    // Notification Logs
+    match /notificationLogs/{logId} {
+      allow read, write: if true;
+    }
+  }
+}

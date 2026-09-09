@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --royal-dark: #19130f;
+    --royal-brown: #281d16;
+    --royal-gold: #c9a45c;
+    --royal-gold-light: #e5cb91;
+    --royal-cream: #f7f0e3;
+    --royal-card: #fffdf8;
+    --royal-border: #ddcfba;
+    --royal-text: #332920;
+    --royal-muted: #806f5d;
+    --royal-green: #536e56;
+  }
+
+  body {
+    background-color: var(--royal-cream);
+    color: var(--royal-text);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .font-royal {
+    font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+
+  .font-cinzel {
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.05em;
+  }
+}
+
+/* Custom Royal scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f7f0e3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ddcfba;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c9a45c;
+}

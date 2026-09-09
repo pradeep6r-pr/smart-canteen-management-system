@@ -1,0 +1,6 @@
+{
+  "name": "Smart Canteen Management System",
+  "description": "Mobile-first Smart Canteen Management System with real-time order tracking, Firebase Cloud Messaging push notifications, and classic royal dining theme.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

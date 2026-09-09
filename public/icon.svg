@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <rect width="192" height="192" rx="36" fill="#19130F"/>
+  <circle cx="96" cy="96" r="80" fill="none" stroke="#C9A45C" stroke-width="4" stroke-opacity="0.6"/>
+  <!-- Royal Cloche & Bell Icon -->
+  <path d="M96 52 C91 52 87 56 87 61 C87 62 87.2 63 87.5 64 C64 68 48 88 48 112 L144 112 C144 88 128 68 104.5 64 C104.8 63 105 62 105 61 C105 56 101 52 96 52 Z" fill="#C9A45C"/>
+  <rect x="42" y="118" width="108" height="8" rx="4" fill="#E5CB91"/>
+  <circle cx="96" cy="48" r="7" fill="#E5CB91"/>
+  <!-- Sparkles -->
+  <path d="M144 48 L148 56 L156 60 L148 64 L144 72 L140 64 L132 60 L140 56 Z" fill="#E5CB91"/>
+</svg>

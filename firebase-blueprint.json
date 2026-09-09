@@ -1,0 +1,76 @@
+{
+  "entities": {
+    "Order": {
+      "title": "Order",
+      "description": "A food order placed by a customer in the smart canteen",
+      "type": "object",
+      "properties": {
+        "orderId": { "type": "string", "description": "Unique order identifier" },
+        "customerId": { "type": "string", "description": "Customer unique identifier" },
+        "customerName": { "type": "string", "description": "Customer name" },
+        "mobileNumber": { "type": "string", "description": "10-digit mobile number" },
+        "email": { "type": "string", "description": "Optional email address" },
+        "tokenNumber": { "type": "string", "description": "Display pickup token number (e.g. T-101)" },
+        "items": { "type": "array", "description": "List of ordered food items" },
+        "totalAmount": { "type": "number", "description": "Total price of order in INR" },
+        "status": {
+          "type": "string",
+          "enum": ["PENDING", "PREPARING", "READY", "COMPLETED", "CANCELLED"],
+          "description": "Current lifecycle status of the order"
+        },
+        "statusNotes": { "type": "string", "description": "Kitchen status note or description" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Order creation ISO timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last update ISO timestamp" },
+        "deviceTokens": { "type": "array", "description": "FCM device push tokens registered for this order" }
+      },
+      "required": ["orderId", "mobileNumber", "items", "totalAmount", "status"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Customer record with device push notification tokens",
+      "type": "object",
+      "properties": {
+        "customerId": { "type": "string", "description": "Unique customer ID" },
+        "mobileNumber": { "type": "string", "description": "Mobile number" },
+        "notificationTokens": { "type": "array", "description": "Active FCM push tokens" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Update timestamp" }
+      },
+      "required": ["customerId"]
+    },
+    "NotificationLog": {
+      "title": "NotificationLog",
+      "description": "Audit record of an FCM notification sent to devices",
+      "type": "object",
+      "properties": {
+        "notificationId": { "type": "string", "description": "Notification log ID" },
+        "orderId": { "type": "string", "description": "Associated order ID" },
+        "tokenNumber": { "type": "string", "description": "Order token number" },
+        "customerId": { "type": "string", "description": "Customer ID" },
+        "mobileNumber": { "type": "string", "description": "Customer mobile number" },
+        "status": { "type": "string", "description": "Target status triggered" },
+        "message": { "type": "string", "description": "Notification message text" },
+        "sentAt": { "type": "string", "format": "date-time", "description": "Timestamp dispatched" },
+        "success": { "type": "boolean", "description": "Delivery success flag" },
+        "recipientCount": { "type": "number", "description": "Total recipient token count" },
+        "deliveredCount": { "type": "number", "description": "Successfully delivered tokens count" },
+        "errors": { "type": "array", "description": "Error details if any delivery failed" }
+      },
+      "required": ["notificationId", "orderId", "status", "message", "sentAt"]
+    }
+  },
+  "firestore": {
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Canteen food orders collection"
+    },
+    "/customers/{customerId}": {
+      "schema": "Customer",
+      "description": "Customer accounts and device notification tokens"
+    },
+    "/notificationLogs/{logId}": {
+      "schema": "NotificationLog",
+      "description": "Audit logs of FCM notifications sent"
+    }
+  }
+}
