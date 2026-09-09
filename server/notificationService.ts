@@ -1,3 +1,4 @@
+import {sendWhatsAppMessage} from './whatsappService';
 import { getAdminMessaging } from './firebaseAdmin';
 import {
   saveCustomerNotificationToken,
@@ -162,6 +163,17 @@ export async function sendOrderStatusNotification(options: SendNotificationOptio
   };
 
   let pushResult = { successCount: 0, failureCount: 0, errors: [] as string[] };
+  // Send WhatsApp notification
+  if (mobileNumber) {
+    try {
+      await sendWhatsAppMessage({
+        mobileNumber,
+        message: `${notificationTitle}\n\n${notificationBody}\n\nToken: ${tokenNumber || 'N/A'}`
+      });
+    } catch (whatsappErr) {
+      console.error('[WhatsApp] Notification failed:', whatsappErr);
+    }
+  }
   try {
     pushResult = await sendNotificationToTokens(recipientTokens, notificationTitle, notificationBody, dataPayload, customerId);
   } catch (err: any) {
